@@ -1,0 +1,4 @@
+help
+-s
+V
+sudo namp -sVC -p- -T4 -Pn --open <Ip> -oN <create_filename>

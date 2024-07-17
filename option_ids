@@ -2,3 +2,21 @@ help
 -s
 V
 sudo namp -sVC -p- -T4 -Pn --open <Ip> -oN <create_filename>
+-sV version scanning
+-sC run further scripts
+-p- port range 
+-T4 speed of analysis 
+-Pn no ping ip 
+--open ports that are open
+-O operating system discovery
+
+gobuster dir -u http// 
+
+dir brute force directory
+-u the target URL 
+- wordlist 
+gobuster - sudo apt install gobuster
+ seclists -  sudo apt install <appliction name>
+
+gobusters vhost -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -u http://thetoppers.htb
+

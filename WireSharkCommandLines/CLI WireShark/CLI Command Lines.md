@@ -111,3 +111,32 @@ Workflow	            List all HTTP packets where the "request method" field
 Usage                   http.request.method matches "(GET|POST)"
 
 tshark -r demo.pcapng -Y 'http.request.method matches "(GET|POST)"' -T fields -e frame.time
+
+
+                                Use Cases | Extract Information 
+
+Query	                                        Purpose
+tshark -r hostnames.pcapng -T fields -e         Main query.
+dhcp.option.hostname                            Extract the DHCP hostname value.
+                                    
+awk NF                                          Remove empty lines.
+
+sort -r                                         Sort recursively before handling the values.
+
+uniq -c                                         Show unique values, but calculate 
+                                                and show the number of  occurrences.
+
+sort -r                                         The final sort process.
+                                                Show the output/results from high occurrences to less.
+
+
+What is the total number of the detected "Wfuzz user agents"
+tshark -r hostnames.pcapng -T fields -e dhcp.option.hostname | awk NF | sort -r | uniq -c | sort -r | wc -l | grep <name>
+
+
+
+
+tshark -r user-agents.pcap -T fields -e http.host
+
+![alt text](Images/Find_HTTPHost.png)
+

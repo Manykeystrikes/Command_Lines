@@ -53,3 +53,61 @@ Statistics | Expert Info
 The expert info view helps analysts to view the automatic comments provided by Wireshark. If you are unfamiliar with the "Wireshark Expert Info", visit task 4 in the Wireshark: The Basics room of the Wireshark module. Use the -z expert -q parameters to view the expert information.
             tshark -r demo.pcapng -z expert -q
 
+            Advanced Filtering Options | Contains, Matches and Extract Fields
+
+Accomplishing in-depth packet analysis sometimes ends up with a special filtering requirement that cannot be covered with default filters. TShark supports Wireshark's "contains" and "matches" operators, which are the key to the advanced filtering options. You can visit the Wireshark: Packet Operations room (Task 6) if you are unfamiliar with these filters. 
+
+A quick recap from the Wireshark: Packet Operations room:
+
+Filter	                    Details
+Contains            Search a value inside packets.
+                    Case sensitive.
+                    Similar to Wireshark's "find" option.
+
+Matches	            Search a pattern inside packets.
+                    Supports regex.
+                    Case insensitive.
+                    Complex queries have a margin of error.
+
+Note: The "contains" and "matches" operators cannot be used with fields consisting of "integer" values.
+Tip: Using HEX and regex values instead of ASCII always has a better chance of a match.
+
+
+                    Extract Fields
+
+This option helps analysts to extract specific parts of data from the packets. In this way, analysts have the opportunity to collect and correlate various fields from the packets. It also helps analysts manage the query output on the terminal. The query structure is explained in the table given below.
+
+Main Filter	        Target Field	        Show Field Name
+-T fields	        -e <field name>	                -E header=y
+
+Note: You need to use the -e parameter for each field you want to display.
+
+You can filter any field by using the field names as shown below.
+
+ tshark -r demo.pcapng -T fields -e ip.src -e ip.dst -E header=y -c 5 
+
+                    Filter: "contains"
+
+Filter              contains
+
+Type	            Comparison operator
+Description	        Search a value inside packets. It is case-sensitive and provides similar 
+                    functionality to the  "Find" option by focusing on a specific field.Example	Find all "Apache" servers.
+Workflow	        List all HTTP packets where the "server" field contains the "<identifier to search>" keyword.
+Usage               http.server contains "Apache"
+
+                tshark -r demo.pcapng -Y 'http.server contains "Apache"'
+
+                    Filter: "matches"
+
+Filter                  Matches
+
+Type	                Comparison operator
+Description	            Search a pattern of a regular expression. It is case-insensitive, 
+                        and complex queries have a margin of error.
+Example	                Find all .php and .html pages.
+Workflow	            List all HTTP packets where the "request method" field 
+                        matches the keywords "GET" or "POST".
+Usage                   http.request.method matches "(GET|POST)"
+
+tshark -r demo.pcapng -Y 'http.request.method matches "(GET|POST)"' -T fields -e frame.time

@@ -147,3 +147,12 @@ tshark -r teamwork.pcap -Y http.request -T fields -e http.host -e ip.dst -e http
 
 
 tshark -r teamwork.pcap -Y "http.request.method == POST" -T fields -e http.host -e http.request.uri -e text|  grep -oE '\b[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+.[A-Z\a-z]{2,}\b'
+
+
+![alt text](Images/ExtractEmail_urlencoded.png)
+
+
+
+tshark -r teamwork.pcap -Y "http.request.method == POST" -T fields -e http.host -e http.request.uri -e urlencoded-form.key -e urlencoded-form.value
+
+![alt text](Images/ExtractEmail.png)

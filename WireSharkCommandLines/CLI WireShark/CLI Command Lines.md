@@ -140,3 +140,10 @@ tshark -r user-agents.pcap -T fields -e http.host
 
 ![alt text](Images/Find_HTTPHost.png)
 
+tshark -r teamwork.pcap -Y http.request -T fields -e http.host -e ip.dst -e http.request.full_uri
+
+
+
+
+
+tshark -r teamwork.pcap -Y "http.request.method == POST" -T fields -e http.host -e http.request.uri -e text|  grep -oE '\b[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+.[A-Z\a-z]{2,}\b'
